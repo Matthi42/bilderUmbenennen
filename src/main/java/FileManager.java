@@ -1,9 +1,8 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class FileManager {
-    private List newFileNames=new ArrayList<String>();
+    private final ArrayList<String> newFileNames=new ArrayList<>();
 
     public void parseCsvFile(File csv) throws IOException {
         final BufferedReader reader = new BufferedReader(new FileReader(csv.getAbsoluteFile()));
@@ -16,7 +15,9 @@ public class FileManager {
         reader.close();
     }
     public void rename(File file, String name){
-        file.renameTo(new File(file.getAbsolutePath()+name+".jpg"));
+        if(file.renameTo(new File(file.getAbsolutePath()+name+".jpg"))){
+            System.out.println("success");
+        }
        System.out.println(file+" -> "+name);
     }
 
@@ -29,7 +30,7 @@ public class FileManager {
         int i=0;
         for (File f: a ) {
             try {
-                rename(f, newFileNames.get(i).toString());
+                rename(f, newFileNames.get(i));
             }catch (IndexOutOfBoundsException exception){
                 exception.printStackTrace();
             }
